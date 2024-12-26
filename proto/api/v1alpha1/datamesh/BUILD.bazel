@@ -14,7 +14,7 @@
 
 load("@rules_proto//proto:defs.bzl", "proto_library")
 load("@rules_cc//cc:defs.bzl", "cc_proto_library")
-load("@com_github_grpc_grpc//bazel:grpc_build_system.bzl", "grpc_cc_grpc_library")
+load("@com_github_grpc_grpc//bazel:cc_grpc_library.bzl", "cc_grpc_library")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -32,11 +32,12 @@ cc_proto_library(
     ],
 )
 
-grpc_cc_grpc_library(
+cc_grpc_library(
     name = "domaindata_cpp_grpc",
-    srcs = ["domaindata_proto"],
+    srcs = [":domaindata_proto"],
+    grpc_only = True,
     deps = [
-        "domaindata_cpp_proto",
+        ":domaindata_cpp_proto",
     ],
 )
 
@@ -54,13 +55,14 @@ cc_proto_library(
     ],
 )
 
-grpc_cc_grpc_library(
+cc_grpc_library(
     name = "domaindatasource_cpp_grpc",
     srcs = [
-        "domaindatasource_proto",
+        ":domaindatasource_proto",
     ],
+    grpc_only = True,
     deps = [
-        "domaindatasource_cc_proto",
+        ":domaindatasource_cc_proto",
     ],
 )
 
